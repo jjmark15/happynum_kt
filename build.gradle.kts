@@ -24,5 +24,5 @@ tasks {
 }
 
 application {
-    mainClassName = "clumsywizard.happynum.Application"
+    mainClassName = "clumsywizard.happynum.ApplicationKt"
 }
