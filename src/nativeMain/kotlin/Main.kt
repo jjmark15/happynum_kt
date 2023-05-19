@@ -9,15 +9,24 @@ import kotlin.time.measureTime
 class HappyNumber : CliktCommand() {
     private val range by option(help = "End inclusive range of numbers to test").int().default(1000000)
 
-    @OptIn(ExperimentalTime::class)
     override fun run() {
-        var distinctHappyNumbers: Int
-        val duration: Duration = measureTime {
-            distinctHappyNumbers = countDistinctHappyNumbers(IntRange(0, range))
+        val (duration, count) = measureTimeOfRun {
+            countDistinctHappyNumbers(IntRange(0, range))
         }
 
-        println("count: $distinctHappyNumbers\ntime: ${duration.inWholeMilliseconds}ms")
+        println("count: ${count}\ntime: ${duration.inWholeMilliseconds}ms")
     }
+}
+
+@OptIn(ExperimentalTime::class)
+inline fun <T> measureTimeOfRun(block: () -> T): Pair<Duration, T> {
+    var result: T
+
+    val duration = measureTime {
+        result = block()
+    }
+
+    return duration to result
 }
 
 fun main(args: Array<String>) = HappyNumber().main(args)
