@@ -6,7 +6,8 @@ import kotlin.time.Duration
 import kotlin.time.measureTime
 
 class HappyNumber : CliktCommand() {
-    private val range by option(help = "End inclusive range of numbers to test").int().default(1000000)
+    private val range by option("-r", "--range", help = "End inclusive range of numbers to test").int()
+        .default(1000000)
 
     override fun run() {
         val (duration, count) = measureTimeOfRun {
