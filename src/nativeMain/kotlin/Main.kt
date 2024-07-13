@@ -3,7 +3,6 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.int
 import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
 class HappyNumber : CliktCommand() {
@@ -18,7 +17,6 @@ class HappyNumber : CliktCommand() {
     }
 }
 
-@OptIn(ExperimentalTime::class)
 inline fun <T> measureTimeOfRun(block: () -> T): Pair<Duration, T> {
     var result: T
 

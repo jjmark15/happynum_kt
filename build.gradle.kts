@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.8.20"
+    kotlin("multiplatform") version "2.0.0"
 }
 
 group = "clumsywizard"
@@ -11,10 +11,13 @@ repositories {
 
 kotlin {
     val hostOs = System.getProperty("os.name")
+    val isArm64 = System.getProperty("os.arch") == "aarch64"
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
-        hostOs == "Mac OS X" -> macosX64("native")
-        hostOs == "Linux" -> linuxX64("native")
+        hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
+        hostOs == "Mac OS X" && !isArm64 -> macosX64("native")
+        hostOs == "Linux" && isArm64 -> linuxArm64("native")
+        hostOs == "Linux" && !isArm64 -> linuxX64("native")
         isMingwX64 -> mingwX64("native")
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
@@ -27,11 +30,15 @@ kotlin {
         }
     }
     sourceSets {
-        val nativeMain by getting
-        val nativeTest by getting
-
-        nativeMain.dependencies {
-            implementation("com.github.ajalt.clikt:clikt:3.5.2")
+        val nativeMain by getting {
+            dependencies {
+                implementation("com.github.ajalt.clikt:clikt:4.4.0")
+            }
+        }
+        val nativeTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
         }
     }
 }
