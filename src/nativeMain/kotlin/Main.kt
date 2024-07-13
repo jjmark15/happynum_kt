@@ -3,6 +3,7 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.int
 import kotlin.time.Duration
+import kotlin.time.DurationUnit
 import kotlin.time.measureTime
 
 class HappyNumber : CliktCommand() {
@@ -14,7 +15,7 @@ class HappyNumber : CliktCommand() {
             countDistinctHappyNumbers(IntRange(0, range))
         }
 
-        println("count: ${count}\ntime: ${duration.inWholeMilliseconds}ms")
+        println("count: ${count}\ntime: ${duration.toString(DurationUnit.SECONDS, 5)}")
     }
 }
 
