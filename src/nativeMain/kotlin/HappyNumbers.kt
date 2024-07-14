@@ -1,6 +1,6 @@
-fun countDistinctHappyNumbers(range: IntRange): Int {
-    return range.filter(::isFirstIteration).count(::isHappy)
-}
+val unHappyMarkerNumbers = listOf(0, 89, 145)
+
+fun countDistinctHappyNumbers(range: IntRange): Int = range.filter(::isFirstIteration).count(::isHappy)
 
 private fun isHappy(n: Int): Boolean {
     var squareSum = n
@@ -16,15 +16,11 @@ private fun isHappy(n: Int): Boolean {
     }
 }
 
-private fun isUnhappy(n: Int): Boolean {
-    return listOf(0, 89, 145).contains(n)
-}
+private fun isUnhappy(n: Int) = unHappyMarkerNumbers.contains(n)
 
-private fun squareSum(n: Int): Int {
-    return n.toString().toCharArray().sumOf {
-        val digit = it.digitToInt()
-        digit * digit
-    }
+private fun squareSum(n: Int): Int = n.toString().toCharArray().sumOf {
+    val digit = it.digitToInt()
+    digit * digit
 }
 
 private fun isFirstIteration(n: Int): Boolean {
