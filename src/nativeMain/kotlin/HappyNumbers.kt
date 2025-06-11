@@ -10,9 +10,8 @@ private fun isHappy(n: Int): Boolean {
             return false
         } else if (squareSum == 1) {
             return true
-        } else {
-            squareSum = squareSum(squareSum)
         }
+        squareSum = squareSum(squareSum)
     }
 }
 
