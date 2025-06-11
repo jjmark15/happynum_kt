@@ -1,0 +1,2 @@
+assembleNative:
+    ./gradlew nativeMainBinaries
